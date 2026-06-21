@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "ReSprectro",
+  "productName": "ReSpectro",
   "version": "0.1.0",
   "identifier": "com.dr4ken.respectro",
   "build": {
@@ -13,7 +13,7 @@
     "windows": [
       {
         "decorations": true,
-        "title": "ReSprectro",
+        "title": "ReSpectro",
         "width": 1920,
         "height": 1080
       }
