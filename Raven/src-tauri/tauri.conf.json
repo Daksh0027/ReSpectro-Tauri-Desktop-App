@@ -21,7 +21,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; connect-src 'self' https://api.themoviedb.org https://*.clerk.accounts.dev; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; iframe-src 'self' https://playimdb.com https://*.playimdb.com; frame-src 'self' https://playimdb.com https://*.playimdb.com; img-src 'self' https://* data:; worker-src 'self' blob:;"
+      "csp": "default-src 'self'; connect-src 'self' https://api.themoviedb.org https://*.clerk.accounts.dev https://ipc.localhost; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; iframe-src 'self' https://playimdb.com https://*.playimdb.com https://streamimdb.ru https://*.streamimdb.ru; frame-src 'self' https://playimdb.com https://*.playimdb.com https://streamimdb.ru https://*.streamimdb.ru; img-src 'self' https://* data:; worker-src 'self' blob:;"
     }
   },
   "bundle": {
