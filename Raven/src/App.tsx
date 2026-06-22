@@ -126,6 +126,7 @@ function ExpandedCard({
   const [details, setDetails] = useState<MediaDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedServer, setSelectedServer] = useState<string>("playimdb");
 
   const isFavorited = favoritesList.some((m) => m.id === mediaId && m.media_type === mediaType);
 
@@ -229,6 +230,36 @@ function ExpandedCard({
     ? `https://image.tmdb.org/t/p/w500${details.poster_path}`
     : noPosterImage;
   const imdbId = details?.external_ids?.imdb_id;
+  const tmdbId = mediaId;
+
+  const getPlayerUrl = () => {
+    switch (selectedServer) {
+      case "playimdb":
+        return imdbId ? `https://m.playimdb.com/title/${imdbId}/` : "";
+      case "vidsrc_to":
+        return `https://vidsrc.to/embed/${mediaType}/${imdbId || tmdbId}`;
+      case "vidsrc_me":
+        return imdbId 
+          ? `https://vidsrc.me/embed/${mediaType}?imdb=${imdbId}` 
+          : `https://vidsrc.me/embed/${mediaType}?tmdb=${tmdbId}`;
+      case "2embed":
+        return mediaType === "movie" 
+          ? `https://www.2embed.cc/embed/${tmdbId}` 
+          : `https://www.2embed.cc/embedtv/${tmdbId}`;
+      case "vidlink":
+        return mediaType === "movie"
+          ? `https://vidlink.pro/movie/${tmdbId}`
+          : `https://vidlink.pro/tv/${tmdbId}/1/1`;
+      case "ezvidapi":
+        return mediaType === "movie"
+          ? `https://ezvidapi.com/embed/movie/${tmdbId}`
+          : `https://ezvidapi.com/embed/tv/${tmdbId}/1/1`;
+      default:
+        return imdbId ? `https://m.playimdb.com/title/${imdbId}/` : "";
+    }
+  };
+
+  const playerUrl = getPlayerUrl();
 
   return (
     <div className="expanded-backdrop" onClick={onClose}>
@@ -269,16 +300,33 @@ function ExpandedCard({
 
             <section className="expanded-media">
               <img src={posterUrl} alt={`Poster for ${title}`} />
-              <div className="player-frame">
-                {imdbId ? (
-                  <iframe
-                    src={`https://m.playimdb.com/title/${imdbId}/`}
-                    title={`Player for ${title}`}
-                    allowFullScreen
-                  />
-                ) : (
-                  <span>IMDb Player Not Available</span>
-                )}
+              <div className="player-container">
+                <div className="player-header">
+                  <span className="player-label">Server:</span>
+                  <select
+                    className="server-select"
+                    value={selectedServer}
+                    onChange={(e) => setSelectedServer(e.target.value)}
+                  >
+                    <option value="playimdb">PlayIMDb (Primary)</option>
+                    <option value="vidsrc_to">VidSrc.to</option>
+                    <option value="vidsrc_me">VidSrc.me</option>
+                    <option value="2embed">2Embed</option>
+                    <option value="vidlink">VidLink.pro</option>
+                    <option value="ezvidapi">EZVidAPI</option>
+                  </select>
+                </div>
+                <div className="player-frame">
+                  {playerUrl ? (
+                    <iframe
+                      src={playerUrl}
+                      title={`Player for ${title}`}
+                      allowFullScreen
+                    />
+                  ) : (
+                    <span>Player Not Available for this Server (Missing IMDb ID)</span>
+                  )}
+                </div>
               </div>
             </section>
 
