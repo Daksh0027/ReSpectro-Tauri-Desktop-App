@@ -15,7 +15,9 @@
         "decorations": true,
         "title": "ReSpectro",
         "width": 1920,
-        "height": 1080
+        "height": 1080,
+        "devtools": true,
+        "useHttpsScheme": true
       }
     ],
     "security": {

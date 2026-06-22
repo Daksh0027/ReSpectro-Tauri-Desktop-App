@@ -275,7 +275,6 @@ function ExpandedCard({
                     src={`https://m.playimdb.com/title/${imdbId}/`}
                     title={`Player for ${title}`}
                     allowFullScreen
-                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <span>IMDb Player Not Available</span>
